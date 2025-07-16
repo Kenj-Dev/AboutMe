@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>About Me</title>
+  <style>
+    :root {
+      --dark-blue: #1f3b80;
+      --hover-blue: #2c4db8;
+      --stroke-blue: #4a6dd6;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+      padding: 20px; /* Give space for box-shadow */
+      background: transparent;
+    }
+
+    body::before {
+      content: "";
+      background: url("../images/bg.jpg") no-repeat center center/cover;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      filter: blur(10px);
+      z-index: -1;
+      animation: fadeBackground 2s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeBackground {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .container {
+      background-color: rgba(255, 255, 255, 0.15);
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 15px var(--stroke-blue);
+      animation: fadeUp 1s ease-out forwards;
+      width: 90vw;
+      max-width: 320px;
+    }
+
+    @keyframes fadeUp {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .pfp {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 3px solid var(--stroke-blue);
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      color: white;
+      font-size: 32px;
+      font-weight: bold;
+      -webkit-text-stroke: 1px var(--stroke-blue);
+      text-shadow: 0 0 6px var(--stroke-blue);
+      margin: 10px 0 8px 0;
+    }
+
+    .discord-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 12px;
+      border-radius: 8px;
+      background-color: #5865F2;
+      color: white;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .discord-tag img {
+      width: 18px;
+      height: 18px;
+    }
+
+    .dropdown {
+      text-align: left;
+      margin-top: 15px;
+    }
+
+    .dropdown-btn {
+      background-color: var(--dark-blue);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 15px;
+      margin-top: 8px;
+      width: 100%;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      border: 2px solid var(--stroke-blue);
+      font-size: 15px;
+      -webkit-text-stroke: 0.6px var(--stroke-blue);
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .dropdown-btn:hover {
+      background-color: var(--hover-blue);
+      transform: scale(1.02);
+    }
+
+    .arrow {
+      transition: transform 0.3s;
+      font-size: 14px;
+      -webkit-text-stroke: 0.5px var(--stroke-blue);
+    }
+
+    .rotated {
+      transform: rotate(90deg);
+    }
+
+    .dropdown-content {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: max-height 0.5s ease, opacity 0.4s ease, transform 0.4s ease, padding 0.3s ease;
+      padding: 0 5px;
+      font-size: 15px;
+      font-weight: bold;
+      color: white;
+      background: none;
+      -webkit-text-stroke: 0.4px var(--stroke-blue);
+      text-shadow: 0 0 5px var(--stroke-blue);
+      text-align: center;
+    }
+
+    .dropdown-content.show {
+      max-height: 500px;
+      opacity: 1;
+      transform: translateY(0);
+      padding: 8px 5px;
+    }
+
+    .dropdown-content h2 {
+      font-size: 16px;
+      font-weight: 900;
+      margin-top: 10px;
+      text-decoration: underline;
+      -webkit-text-stroke: 0.5px var(--stroke-blue);
+    }
+
+    .value {
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: 17px;
+      font-weight: bold;
+      margin-bottom: 8px;
+      text-decoration: underline;
+      -webkit-text-stroke: 0.5px var(--stroke-blue);
+    }
+
+    .social-wrapper {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      position: relative;
+      animation: fadeUp 1.5s ease-out forwards;
+    }
+
+    .icon-button {
+      background-color: var(--dark-blue);
+      border: 2px solid var(--stroke-blue);
+      border-radius: 10px;
+      padding: 4px;
+      cursor: pointer;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+      position: relative;
+    }
+
+    .icon-button:hover {
+      background-color: var(--hover-blue);
+      transform: scale(1.1);
+    }
+
+    .icon-button img {
+      width: 38px;
+      height: 38px;
+      border-radius: 6px;
+    }
+
+    .tooltip {
+      position: absolute;
+      bottom: -30px;
+      left: 50%;
+      transform: translateX(-50%) scale(0.9);
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 13px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .icon-button:hover .tooltip {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+    }
+  </style>
+  <script>
+    function toggleDropdown(id, arrowId) {
+      const content = document.getElementById(id);
+      const arrow = document.getElementById(arrowId);
+      content.classList.toggle("show");
+      arrow.classList.toggle("rotated");
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <img class="pfp" src="../images/pfp.png" alt="Profile Picture">
+    <h1>Kenji</h1>
+    <div class="discord-tag">
+      <img src="../images/discord.png" alt="Discord Icon">
+      kenjiro_ito
+    </div>
+
+    <div class="dropdown">
+      <button class="dropdown-btn" onclick="toggleDropdown('about', 'arrow-about')">
+        About Me <span class="arrow" id="arrow-about">▶</span>
+      </button>
+      <div class="dropdown-content" id="about">
+        <h2>Name</h2>
+        <div class="value">Kenjiro or Kenji</div>
+        <h2>Age</h2>
+        <div class="value">Thirteen</div>
+        <h2>Pronouns</h2>
+        <div class="value">He/Him</div>
+        <h2>Gender</h2>
+        <div class="value">Male</div>
+      </div>
+
+      <button class="dropdown-btn" onclick="toggleDropdown('hobbies', 'arrow-hobbies')">
+        Hobbies <span class="arrow" id="arrow-hobbies">▶</span>
+      </button>
+      <div class="dropdown-content" id="hobbies">
+        <div class="section-title">Hobbies</div>
+        <div class="value">Gaming</div>
+        <div class="value">Programming</div>
+        <div class="value">Game Dev</div>
+        <div class="value">Web Dev</div>
+      </div>
+
+      <button class="dropdown-btn" onclick="toggleDropdown('friends', 'arrow-friends')">
+        Siblings & Friends <span class="arrow" id="arrow-friends">▶</span>
+      </button>
+      <div class="dropdown-content" id="friends">
+        <div class="section-title">Siblings & Friends</div>
+        <h2>Siblings</h2>
+        <div class="value">Dash, Zuan & Nate</div>
+        <h2>Friends</h2>
+        <div class="value">Movitz, Jayden & Vivi</div>
+      </div>
+
+      <button class="dropdown-btn" onclick="toggleDropdown('likes', 'arrow-likes')">
+        Likes & Dislikes <span class="arrow" id="arrow-likes">▶</span>
+      </button>
+      <div class="dropdown-content" id="likes">
+        <div class="section-title">Likes & Dislikes</div>
+        <h2>Likes</h2>
+        <div class="value">Anime, Music, Drawings, Art</div>
+        <div class="value">Roblox, Minecraft, Coding, Programming & Gamedev</div>
+        <h2>Dislikes</h2>
+        <div class="value">Rude people, Dry texters</div>
+        <div class="value">Sexism, Racism & People judging others</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Social Buttons -->
+  <div class="social-wrapper">
+    <a href="https://www.youtube.com/@Kenjiro-x5q" target="_blank" class="icon-button">
+      <img src="../images/youtube.png" alt="YouTube">
+      <div class="tooltip">YouTube</div>
+    </a>
+    <a href="https://www.tiktok.com/@kenji_12612" target="_blank" class="icon-button">
+      <img src="../images/tiktok.png" alt="TikTok">
+      <div class="tooltip">TikTok</div>
+    </a>
+    <a href="https://www.roblox.com/users/4549130826/profile" target="_blank" class="icon-button">
+      <img src="../images/roblox.png" alt="Roblox">
+      <div class="tooltip">Roblox</div>
+    </a>
+  </div>
+</body>
+</html>
